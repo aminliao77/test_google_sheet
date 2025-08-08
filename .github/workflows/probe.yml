@@ -2,7 +2,7 @@ name: probe
 
 on:
   schedule:
-    - cron: "* * * * *"   # 每分鐘（改用最單純寫法）
+    - cron: "*/5 * * * *"   # 每分鐘（改用最單純寫法）
   workflow_dispatch:
 
 jobs:
