@@ -1,0 +1,20 @@
+name: "Setup Python & Run"
+description: "安裝指定版本 Python，並跑測試腳本"
+
+inputs:
+  python-version:
+    description: "要安裝的 Python 版本"
+    required: true
+    default: "3.11"
+
+runs:
+  using: "composite"
+  steps:
+    - name: 安裝指定版本 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: 執行 Python 測試程式
+      run: python -c "import sys; print(f'目前 Python 版本: {sys.version}')"
+      shell: bash
