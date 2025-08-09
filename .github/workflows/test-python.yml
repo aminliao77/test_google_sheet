@@ -1,0 +1,15 @@
+name: Test Python Input
+
+on:
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安裝指定 Python 並執行
+        uses: ./.github/actions/setup-python
+        with:
+          python-version: "3.9"
