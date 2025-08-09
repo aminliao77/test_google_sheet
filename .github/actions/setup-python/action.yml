@@ -8,13 +8,18 @@ inputs:
     default: "3.11"
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: 安裝指定版本 Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ inputs.python-version }}
+        # 破折號的 key，建議用索引法最保險
+        python-version: ${{ inputs['python-version'] }}
 
     - name: 執行 Python 測試程式
-      run: python -c "import sys; print(f'目前 Python 版本: {sys.version}')"
       shell: bash
+      run: |
+        python - <<'PY'
+        import sys
+        print("目前 Python 版本:", sys.version)
+        PY
