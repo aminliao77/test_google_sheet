@@ -1,0 +1,22 @@
+name: Manual Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 要建置的目標
+        required: true
+        default: app
+      release:
+        description: 是否為發行版
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "target=${{ inputs.target }}"
+          echo "release=${{ inputs.release }}"
