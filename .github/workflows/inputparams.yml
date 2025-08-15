@@ -1,0 +1,31 @@
+name: Validate Inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "版本編號 (必須為整數)"
+        type: number
+        required: true
+        default: 1
+      enable_feature:
+        description: "是否啟用功能 (布林值)"
+        type: boolean
+        required: true
+        default: false
+
+jobs:
+  validate-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 檢查整數
+        if: ${{ inputs.build_number == fromJSON(inputs.build_number) }}
+        run: echo "版本編號是整數：${{ inputs.build_number }}"
+
+      - name: 檢查布林（true 時才執行）
+        if: ${{ fromJSON(inputs.enable_feature) == true }}
+        run: echo "布林為 true，執行功能！"
+
+      - name: 顯示不符合型別的情況
+        if: ${{ !(inputs.build_number == fromJSON(inputs.build_number) && (fromJSON(inputs.enable_feature) == true || fromJSON(inputs.enable_feature) == false)) }}
+        run: echo "輸入的型別不符合要求，停止執行。"
